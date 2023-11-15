@@ -2,6 +2,7 @@ from tetras import Tetra
 import functions
 from openai import OpenAI
 import streamlit as st
+import html
 
 with st.sidebar:
     openai_api_key = st.text_input(
@@ -10,8 +11,8 @@ with st.sidebar:
     "[Get an OpenAI API key](https://platform.openai.com/account/api-keys)"
     "[View the source code](https://github.com/Hornet47/Tetra)"
 
-st.title("💬 Chatbot")
-st.caption("🚀 A streamlit chatbot powered by OpenAI LLM")
+st.title("💬 TETRA")
+st.caption("🚀 A streamlit chatbot powered by OpenAI Assistant")
 
 if "messages" not in st.session_state:
     st.session_state["messages"] = [
@@ -42,4 +43,4 @@ if prompt := st.chat_input():
 
     msg = tetra.process_message(prompt)
     st.session_state.messages.append({"role": "assistant", "content": msg})
-    st.chat_message("assistant").write(msg)
+    st.chat_message("assistant").write(html.escape(msg))
