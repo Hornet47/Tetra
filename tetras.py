@@ -33,6 +33,7 @@ class Tetra:
         
         
     def submit_tool_outputs(self, run: Run, thread: Thread):
+        print("Submitting tool outputs...")
         _toolcalls = run.required_action.submit_tool_outputs.tool_calls
         outputs = toolcalls.execute_all(_toolcalls)
         self.client.threads.runs.submit_tool_outputs(
@@ -49,6 +50,7 @@ class Tetra:
         thread = self.client.threads.create() if thread_name not in self.threads else self.threads[thread_name]
         self.client.threads.messages.create(thread_id=thread.id, content=message, role = "user")
         run: Run = self.client.threads.runs.create(thread_id=thread.id, assistant_id=self.id)
+        print("Processing message...")
         while True:
             run = self.client.threads.runs.retrieve(run_id=run.id, thread_id=thread.id)
             if run.status == "requires_action":

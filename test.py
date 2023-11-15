@@ -15,5 +15,6 @@ code_writer = Tetra(
     **config["code_writer"]
 )
 msg = code_writer.process_message("Generate the python script that draw a 3d surface of x**2+y**2.")
-content = functions.extract_section(msg, "```python", "```")
-functions.execute("draw.py", content)
+file_name, code = functions.extract_code(msg)
+functions.write_into_file(file_name, code)
+functions.execute(file_name)
