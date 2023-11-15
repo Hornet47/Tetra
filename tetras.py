@@ -44,7 +44,7 @@ class Tetra:
     def process_message(
         self,
         message: str,
-        thread_name: str = "new thread",\
+        thread_name: str = "new thread",
         ) -> str:
         thread = self.client.threads.create() if thread_name not in self.threads else self.threads[thread_name]
         self.client.threads.messages.create(thread_id=thread.id, content=message, role = "user")
