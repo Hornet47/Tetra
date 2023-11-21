@@ -1,5 +1,4 @@
-from tetras import Tetra
-import functions
+from agents import Agent
 from openai import OpenAI
 import streamlit as st
 import html
@@ -28,14 +27,10 @@ if prompt := st.chat_input():
         st.stop()
 
     client = OpenAI(api_key=openai_api_key).beta
-    tetra = Tetra(
+    tetra = Agent(
         client=client,
         tools=[
-            {"type": "code_interpreter"},
-            {
-                "type": "function",
-                "function": functions.d_get_current_weather,
-            },
+            {"type": "code_interpreter"}
         ],
     )
     st.session_state.messages.append({"role": "user", "content": prompt})

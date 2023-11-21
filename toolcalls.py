@@ -2,11 +2,11 @@ from typing import List
 from openai.types.beta.threads.required_action_function_tool_call import RequiredActionFunctionToolCall
 from openai.types.beta.threads.run_submit_tool_outputs_params import ToolOutput
 import json
-import functions
+import user_proxy
 
 def execute(toolcall: RequiredActionFunctionToolCall) -> ToolOutput:
     function = toolcall.function
-    selected_function = getattr(functions, function.name)
+    selected_function = getattr(user_proxy, function.name)
     arguments = json.loads(function.arguments)
     
     if selected_function is not None and callable(selected_function):

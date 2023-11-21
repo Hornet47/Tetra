@@ -1,6 +1,7 @@
-from tetras import Tetra
-import functions
+from agents import Agent
 from openai import OpenAI
+import user_proxy
+import utils
 import json
 
 config_file_path = 'assistant_config.json'
@@ -8,13 +9,13 @@ config_file_path = 'assistant_config.json'
 with open(config_file_path, 'r') as file:
     config = json.load(file)
     
-client = OpenAI().beta
+client = OpenAI()
 
-code_writer = Tetra(
-    client=client,
-    **config["code_writer"]
+code_writer = Agent(
+    **config["PostgreSQL_writer"]
 )
-msg = code_writer.process_message("Generate the python script that draw a 3d surface of x**2+y**2.")
-file_name, code = functions.extract_code(msg)
-functions.write_into_file(file_name, code)
-functions.execute(file_name)
+msg = code_writer.process_message("Generate the query for: the most popular film category in China")
+query = utils.extract_sql(msg)
+print(query)
+res = user_proxy.run_sql(query=query)
+print(res)

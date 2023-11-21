@@ -1,0 +1,450 @@
+{
+  "actor": {
+    "columns": [
+      {
+        "column_name": "actor_id",
+        "data_type": "integer"
+      },
+      {
+        "column_name": "first_name",
+        "data_type": "character varying(45)"
+      },
+      {
+        "column_name": "last_name",
+        "data_type": "character varying(45)"
+      },
+      {
+        "column_name": "last_update",
+        "data_type": "timestamp without time zone"
+      }
+    ],
+    "foreign_keys": {}
+  },
+  "address": {
+    "columns": [
+      {
+        "column_name": "address_id",
+        "data_type": "integer"
+      },
+      {
+        "column_name": "address",
+        "data_type": "character varying(50)"
+      },
+      {
+        "column_name": "address2",
+        "data_type": "character varying(50)"
+      },
+      {
+        "column_name": "district",
+        "data_type": "character varying(20)"
+      },
+      {
+        "column_name": "city_id",
+        "data_type": "smallint"
+      },
+      {
+        "column_name": "postal_code",
+        "data_type": "character varying(10)"
+      },
+      {
+        "column_name": "phone",
+        "data_type": "character varying(20)"
+      },
+      {
+        "column_name": "last_update",
+        "data_type": "timestamp without time zone"
+      }
+    ],
+    "foreign_keys": {
+      "city_id": "city"
+    }
+  },
+  "category": {
+    "columns": [
+      {
+        "column_name": "category_id",
+        "data_type": "integer"
+      },
+      {
+        "column_name": "name",
+        "data_type": "character varying(25)"
+      },
+      {
+        "column_name": "last_update",
+        "data_type": "timestamp without time zone"
+      }
+    ],
+    "foreign_keys": {}
+  },
+  "city": {
+    "columns": [
+      {
+        "column_name": "city_id",
+        "data_type": "integer"
+      },
+      {
+        "column_name": "city",
+        "data_type": "character varying(50)"
+      },
+      {
+        "column_name": "country_id",
+        "data_type": "smallint"
+      },
+      {
+        "column_name": "last_update",
+        "data_type": "timestamp without time zone"
+      }
+    ],
+    "foreign_keys": {
+      "country_id": "country"
+    }
+  },
+  "country": {
+    "columns": [
+      {
+        "column_name": "country_id",
+        "data_type": "integer"
+      },
+      {
+        "column_name": "country",
+        "data_type": "character varying(50)"
+      },
+      {
+        "column_name": "last_update",
+        "data_type": "timestamp without time zone"
+      }
+    ],
+    "foreign_keys": {}
+  },
+  "customer": {
+    "columns": [
+      {
+        "column_name": "customer_id",
+        "data_type": "integer"
+      },
+      {
+        "column_name": "store_id",
+        "data_type": "smallint"
+      },
+      {
+        "column_name": "first_name",
+        "data_type": "character varying(45)"
+      },
+      {
+        "column_name": "last_name",
+        "data_type": "character varying(45)"
+      },
+      {
+        "column_name": "email",
+        "data_type": "character varying(50)"
+      },
+      {
+        "column_name": "address_id",
+        "data_type": "smallint"
+      },
+      {
+        "column_name": "activebool",
+        "data_type": "boolean"
+      },
+      {
+        "column_name": "create_date",
+        "data_type": "date"
+      },
+      {
+        "column_name": "last_update",
+        "data_type": "timestamp without time zone"
+      },
+      {
+        "column_name": "active",
+        "data_type": "integer"
+      }
+    ],
+    "foreign_keys": {
+      "address_id": "address"
+    }
+  },
+  "film": {
+    "columns": [
+      {
+        "column_name": "film_id",
+        "data_type": "integer"
+      },
+      {
+        "column_name": "title",
+        "data_type": "character varying(255)"
+      },
+      {
+        "column_name": "description",
+        "data_type": "text"
+      },
+      {
+        "column_name": "release_year",
+        "data_type": "year"
+      },
+      {
+        "column_name": "language_id",
+        "data_type": "smallint"
+      },
+      {
+        "column_name": "rental_duration",
+        "data_type": "smallint"
+      },
+      {
+        "column_name": "rental_rate",
+        "data_type": "numeric(4,2)"
+      },
+      {
+        "column_name": "length",
+        "data_type": "smallint"
+      },
+      {
+        "column_name": "replacement_cost",
+        "data_type": "numeric(5,2)"
+      },
+      {
+        "column_name": "rating",
+        "data_type": "mpaa_rating"
+      },
+      {
+        "column_name": "last_update",
+        "data_type": "timestamp without time zone"
+      },
+      {
+        "column_name": "special_features",
+        "data_type": "text[]"
+      },
+      {
+        "column_name": "fulltext",
+        "data_type": "tsvector"
+      }
+    ],
+    "foreign_keys": {
+      "language_id": "language"
+    }
+  },
+  "film_actor": {
+    "columns": [
+      {
+        "column_name": "actor_id",
+        "data_type": "smallint"
+      },
+      {
+        "column_name": "film_id",
+        "data_type": "smallint"
+      },
+      {
+        "column_name": "last_update",
+        "data_type": "timestamp without time zone"
+      }
+    ],
+    "foreign_keys": {
+      "actor_id": "actor",
+      "film_id": "film"
+    }
+  },
+  "film_category": {
+    "columns": [
+      {
+        "column_name": "film_id",
+        "data_type": "smallint"
+      },
+      {
+        "column_name": "category_id",
+        "data_type": "smallint"
+      },
+      {
+        "column_name": "last_update",
+        "data_type": "timestamp without time zone"
+      }
+    ],
+    "foreign_keys": {
+      "film_id": "film",
+      "category_id": "category"
+    }
+  },
+  "inventory": {
+    "columns": [
+      {
+        "column_name": "inventory_id",
+        "data_type": "integer"
+      },
+      {
+        "column_name": "film_id",
+        "data_type": "smallint"
+      },
+      {
+        "column_name": "store_id",
+        "data_type": "smallint"
+      },
+      {
+        "column_name": "last_update",
+        "data_type": "timestamp without time zone"
+      }
+    ],
+    "foreign_keys": {
+      "film_id": "film"
+    }
+  },
+  "language": {
+    "columns": [
+      {
+        "column_name": "language_id",
+        "data_type": "integer"
+      },
+      {
+        "column_name": "name",
+        "data_type": "character(20)"
+      },
+      {
+        "column_name": "last_update",
+        "data_type": "timestamp without time zone"
+      }
+    ],
+    "foreign_keys": {}
+  },
+  "payment": {
+    "columns": [
+      {
+        "column_name": "payment_id",
+        "data_type": "integer"
+      },
+      {
+        "column_name": "customer_id",
+        "data_type": "smallint"
+      },
+      {
+        "column_name": "staff_id",
+        "data_type": "smallint"
+      },
+      {
+        "column_name": "rental_id",
+        "data_type": "integer"
+      },
+      {
+        "column_name": "amount",
+        "data_type": "numeric(5,2)"
+      },
+      {
+        "column_name": "payment_date",
+        "data_type": "timestamp without time zone"
+      }
+    ],
+    "foreign_keys": {
+      "customer_id": "customer",
+      "staff_id": "staff",
+      "rental_id": "rental"
+    }
+  },
+  "rental": {
+    "columns": [
+      {
+        "column_name": "rental_id",
+        "data_type": "integer"
+      },
+      {
+        "column_name": "rental_date",
+        "data_type": "timestamp without time zone"
+      },
+      {
+        "column_name": "inventory_id",
+        "data_type": "integer"
+      },
+      {
+        "column_name": "customer_id",
+        "data_type": "smallint"
+      },
+      {
+        "column_name": "return_date",
+        "data_type": "timestamp without time zone"
+      },
+      {
+        "column_name": "staff_id",
+        "data_type": "smallint"
+      },
+      {
+        "column_name": "last_update",
+        "data_type": "timestamp without time zone"
+      }
+    ],
+    "foreign_keys": {
+      "inventory_id": "inventory",
+      "customer_id": "customer",
+      "staff_id": "staff"
+    }
+  },
+  "staff": {
+    "columns": [
+      {
+        "column_name": "staff_id",
+        "data_type": "integer"
+      },
+      {
+        "column_name": "first_name",
+        "data_type": "character varying(45)"
+      },
+      {
+        "column_name": "last_name",
+        "data_type": "character varying(45)"
+      },
+      {
+        "column_name": "address_id",
+        "data_type": "smallint"
+      },
+      {
+        "column_name": "email",
+        "data_type": "character varying(50)"
+      },
+      {
+        "column_name": "store_id",
+        "data_type": "smallint"
+      },
+      {
+        "column_name": "active",
+        "data_type": "boolean"
+      },
+      {
+        "column_name": "username",
+        "data_type": "character varying(16)"
+      },
+      {
+        "column_name": "password",
+        "data_type": "character varying(40)"
+      },
+      {
+        "column_name": "last_update",
+        "data_type": "timestamp without time zone"
+      },
+      {
+        "column_name": "picture",
+        "data_type": "bytea"
+      }
+    ],
+    "foreign_keys": {
+      "address_id": "address"
+    }
+  },
+  "store": {
+    "columns": [
+      {
+        "column_name": "store_id",
+        "data_type": "integer"
+      },
+      {
+        "column_name": "manager_staff_id",
+        "data_type": "smallint"
+      },
+      {
+        "column_name": "address_id",
+        "data_type": "smallint"
+      },
+      {
+        "column_name": "last_update",
+        "data_type": "timestamp without time zone"
+      }
+    ],
+    "foreign_keys": {
+      "manager_staff_id": "staff",
+      "address_id": "address"
+    }
+  }
+}
