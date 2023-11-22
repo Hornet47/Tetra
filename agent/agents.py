@@ -4,7 +4,7 @@ from openai.types.beta.threads import Run
 from openai.types.beta.assistant_create_params import Tool
 from typing import List, Dict
 from time import sleep
-import toolcalls
+from agent import toolcalls
 
 
 class Agent:
@@ -55,15 +55,19 @@ class Agent:
                     break
             if not exist:
                 file = Agent.client.files.create(
-                    file=open(file_name, "rb"), purpose="assistants"
+                    file=open(f"files/{file_name}", "rb"), purpose="assistants"
                 )
                 file_ids.append(file.id)
         return file_ids
 
     def submit_tool_outputs(self, run: Run, thread: Thread):
-        print("Submitting tool outputs...")
+        
+        if run.status != "requires_action":
+            return
+        
         _toolcalls = run.required_action.submit_tool_outputs.tool_calls
         outputs = toolcalls.execute_all(_toolcalls)
+        print("Submitting tool outputs...")
         Agent.client.beta.threads.runs.submit_tool_outputs(
             run_id=run.id, thread_id=thread.id, tool_outputs=outputs
         )
@@ -74,12 +78,15 @@ class Agent:
         thread_name: str = "new thread",
         file_names: List[str] = [],
     ) -> str:
+        
+        # create a new thread if thread name doesn't exist
         thread = (
             Agent.client.beta.threads.create()
             if thread_name not in self.threads
             else self.threads[thread_name]
         )
         
+        # add thread-specific files
         file_ids = Agent.get_or_create_files(file_names=file_names)
         if file_ids.__len__() != 0:
             Agent.client.beta.threads.messages.create(
@@ -92,7 +99,9 @@ class Agent:
         run: Run = Agent.client.beta.threads.runs.create(
             thread_id=thread.id, assistant_id=self.id
         )
-        print("Processing message...")
+        
+        # wait for the run to complete
+        print(f"{self.name} is processing message...")
         while True:
             run = Agent.client.beta.threads.runs.retrieve(
                 run_id=run.id, thread_id=thread.id

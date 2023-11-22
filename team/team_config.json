@@ -1,0 +1,7 @@
+{
+    "data_analytics_team": {
+        "members": [
+            "postgreSQL_writer", "python_programmer", "user_proxy"
+        ]
+    }
+}

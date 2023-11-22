@@ -1,19 +1,15 @@
-from agents import Agent
-from openai import OpenAI
-import user_proxy
-import utils
+from agent.agents import Agent
+from agent import user_proxy, utils
 import json
 
 def main():
-    config_file_path = 'assistant_config.json'
-
-    with open(config_file_path, 'r') as file:
+    with open('agent/agent_config.json', 'r') as file:
         config = json.load(file)
 
     code_writer = Agent(
-        **config["PostgreSQL_writer"]
+        **config["postgreSQL_writer"]
     )
-    msg = code_writer.process_message("Generate the query for: the most popular film category in China")
+    msg = code_writer.process_message("Generate the query for: which film category has the highest average price?")
     query = utils.extract_sql(msg)
     print(query)
     res = user_proxy.run_sql(query=query)
