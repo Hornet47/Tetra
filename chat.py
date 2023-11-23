@@ -1,4 +1,3 @@
-from agents import Agent
 from openai import OpenAI
 import streamlit as st
 import html
@@ -26,16 +25,11 @@ if prompt := st.chat_input():
         st.info("Please add your OpenAI API key to continue.")
         st.stop()
 
-    client = OpenAI(api_key=openai_api_key).beta
-    tetra = Agent(
-        client=client,
-        tools=[
-            {"type": "code_interpreter"}
-        ],
-    )
+    client = OpenAI(api_key=openai_api_key)
+    
     st.session_state.messages.append({"role": "user", "content": prompt})
     st.chat_message("user").write(prompt)
 
-    msg = tetra.process_message(prompt)
+    # msg = ...
     st.session_state.messages.append({"role": "assistant", "content": msg})
     st.chat_message("assistant").write(html.escape(msg))

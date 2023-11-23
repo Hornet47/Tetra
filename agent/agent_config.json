@@ -1,13 +1,9 @@
 {
-    "user_proxy": {
-        "name": "user_proxy",
-        "instructions": "You are ",
+    "manager": {
+        "instructions": "You are a team manager that is responsible for assigning your team members tasks base on user request and your team members' capabilities. You can read what your team members' name and what they are responsible for in the .json file. You will tell me to whom you will assign the task and what your instruction will be.",
         "tools": [
             {
-                "type": "function",
-                "function": {
-                    
-                }
+                "type": "retrieval"
             }
         ]
     },
@@ -20,7 +16,7 @@
             }
         ]
     },
-    "PostgreSQL_writer": {
+    "postgreSQL_writer": {
         "name": "postgreSQL_writer",
         "instructions": "You are an experienced PostgreSQL programmer. You will generate optimized PostgreSQL queries based on requests and return it as string. Do not execute the query. Do not ask me if you should generate the sql query, just generate it directly. The file ER.json describes the entities in the database, as well as their columns and foreign keys.",
         "tools": [
